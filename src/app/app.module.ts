@@ -30,9 +30,11 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './core/auth.service';
 import { MessagingService } from './core/messaging.service';
+import { PropertiesComponent } from './properties/properties.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'properties', component: PropertiesComponent, canActivate: [AuthService] },
   { path: '**', component: HomeComponent, canActivate: [AuthService] }
 ];
 
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    PropertiesComponent
   ],
   imports: [
     RouterModule.forRoot(
