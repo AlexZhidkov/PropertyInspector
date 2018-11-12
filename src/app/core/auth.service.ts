@@ -33,6 +33,8 @@ export class AuthService implements CanActivate {
             this.messagingService.requestPermission(authUser.uid);
             this.messagingService.receiveMessage();
           });
+      } else {
+        this.router.navigate(['login']);
       }
     });
   }
