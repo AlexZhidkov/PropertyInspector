@@ -31,10 +31,12 @@ import { HomeComponent } from './home/home.component';
 import { AuthService } from './core/auth.service';
 import { MessagingService } from './core/messaging.service';
 import { PropertiesComponent } from './properties/properties.component';
+import { PropertyComponent } from './property/property.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'properties', component: PropertiesComponent, canActivate: [AuthService] },
+  { path: 'property/:id', component: PropertyComponent, canActivate: [AuthService] },
   { path: '**', component: HomeComponent, canActivate: [AuthService] }
 ];
 
@@ -43,13 +45,15 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    PropertiesComponent
+    PropertiesComponent,
+    PropertyComponent
   ],
   imports: [
     RouterModule.forRoot(
       appRoutes
     ),
     BrowserModule,
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

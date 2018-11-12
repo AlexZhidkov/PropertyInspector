@@ -29,12 +29,12 @@ export class PropertiesComponent implements OnInit {
     }));
   }
 
-  addNewEvent() {
-    const newEvent: Property = {
+  addNewProperty() {
+    const newProperty: Property = {
       name: ''
     };
     this.authService.currentUser.subscribe(user => {
-      this.collection.add(newEvent).then(doc =>
+      this.collection.add(newProperty).then(doc =>
         this.router.navigate(['property/' + doc.id]));
     });
   }

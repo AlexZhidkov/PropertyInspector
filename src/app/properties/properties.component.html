@@ -1,4 +1,5 @@
 <mat-list>
+  <h3 mat-subheader>Properties</h3>
   <mat-list-item *ngFor="let property of properties | async" routerLink="/property/{{property.id}}">
     {{ property.name }}
   </mat-list-item>
