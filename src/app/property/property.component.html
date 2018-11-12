@@ -1,12 +1,15 @@
-<mat-form-field class="full-width">
-  <input matInput type="text" name="name" placeholder="Name" [ngModel]="(property | async)?.name" (ngModelChange)="propertyDoc.update({name: $event})">
-</mat-form-field>
-<mat-list>
-  <h3 mat-subheader>Rooms</h3>
-  <mat-list-item *ngFor="let room of rooms | async" routerLink="/room/{{room.id}}">
-    {{ room.name }}
-  </mat-list-item>
-</mat-list>
-<button mat-fab>
-  <mat-icon aria-label="Add" (click)="addNewRoom()">add</mat-icon>
-</button>
+<mat-card>
+  <mat-form-field class="full-width">
+    <input matInput type="text" name="name" placeholder="Property Name" [ngModel]="(property | async)?.name"
+      (ngModelChange)="propertyDoc.update({name: $event})">
+  </mat-form-field>
+  <mat-list>
+    <h3 mat-subheader>Rooms</h3>
+    <mat-list-item *ngFor="let room of rooms | async" routerLink="/room/{{room.id}}">
+      {{ room.name }}
+    </mat-list-item>
+  </mat-list>
+  <button mat-fab>
+    <mat-icon aria-label="Add" (click)="addNewRoom()">add</mat-icon>
+  </button>
+</mat-card>
