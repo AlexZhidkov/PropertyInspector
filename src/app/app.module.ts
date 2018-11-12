@@ -5,9 +5,24 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatNativeDateModule,
+  MatInputModule,
+  MatListModule,
+  MatSidenavModule,
+  MatProgressBarModule,
+  MAT_DATE_LOCALE
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +34,19 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatListModule,
+    MatSidenavModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
