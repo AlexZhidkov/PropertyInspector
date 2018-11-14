@@ -38,7 +38,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'properties', component: PropertiesComponent, canActivate: [AuthService] },
   { path: 'property/:id', component: PropertyComponent, canActivate: [AuthService] },
-  { path: 'room/:roomId', component: RoomComponent, canActivate: [AuthService]},
+  { path: 'room/:propertyId/:roomId', component: RoomComponent, canActivate: [AuthService] },
   { path: '**', component: HomeComponent, canActivate: [AuthService] }
 ];
 

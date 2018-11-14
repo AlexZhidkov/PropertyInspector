@@ -17,12 +17,13 @@ export class RoomComponent implements OnInit {
   isLoading: boolean;
 
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router) {}
+  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.isLoading = true;
-    const id = this.route.snapshot.paramMap.get('id');
-    this.roomDoc = this.afs.doc<Room>('properties/cNwLRyZXadjFGzvPpne9/rooms/' + id);
+    const propertyId = this.route.snapshot.paramMap.get('propertyId');
+    const roomId = this.route.snapshot.paramMap.get('id');
+    this.roomDoc = this.afs.doc<Room>('properties/' + propertyId + '/rooms/' + roomId);
     this.room = this.roomDoc.valueChanges();
     this.room.subscribe(e => {
       this.isLoading = false;

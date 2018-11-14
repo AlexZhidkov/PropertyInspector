@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./property.component.css']
 })
 export class PropertyComponent implements OnInit {
-
+  propertyId: string;
   propertyDoc: AngularFirestoreDocument<Property>;
   property: Observable<Property>;
   private roomsCollection: AngularFirestoreCollection<Room>;
@@ -23,13 +23,13 @@ export class PropertyComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    const propertyId = this.route.snapshot.paramMap.get('id');
-    this.propertyDoc = this.afs.doc<Property>('properties/' + propertyId);
+    this.propertyId = this.route.snapshot.paramMap.get('id');
+    this.propertyDoc = this.afs.doc<Property>('properties/' + this.propertyId);
     this.property = this.propertyDoc.valueChanges();
     this.property.subscribe(e => {
       this.isLoading = false;
     });
-    this.roomsCollection = this.afs.collection<Room>('properties/' + propertyId + '/rooms');
+    this.roomsCollection = this.afs.collection<Room>('properties/' + this.propertyId + '/rooms');
     this.rooms = this.roomsCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(action => {
         const data = action.payload.doc.data() as Room;
@@ -46,6 +46,6 @@ export class PropertyComponent implements OnInit {
       rating: 0
     };
     this.roomsCollection.add(newRoom).then(doc =>
-      this.router.navigate(['room/' + doc.id]));
+      this.router.navigate(['room/' + this.propertyId + '/' + doc.id]));
   }
 }
