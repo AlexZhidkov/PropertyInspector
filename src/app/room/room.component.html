@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-form-field class="full-width">
+    <input matInput type="text" name="name" placeholder="Room Name" [ngModel]="(room | async)?.name"
+      (ngModelChange)="roomDoc.update({name: $event})">
+  </mat-form-field>
+  <mat-list>
+    <h3 mat-subheader>Issues</h3>
+    <mat-list-item *ngFor="let issue of Issues | async" routerLink="/issue/{{issue.id}}">
+      {{ issue.name }}
+    </mat-list-item>
+  </mat-list>
+  <button mat-fab>
+    <mat-icon aria-label="Add" (click)="addNewIssue()">add</mat-icon>
+  </button>
+</mat-card>

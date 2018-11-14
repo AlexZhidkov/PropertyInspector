@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { Room } from '../model/room';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-property',
@@ -22,19 +23,27 @@ export class PropertyComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    const id = this.route.snapshot.paramMap.get('id');
-    this.propertyDoc = this.afs.doc<Property>('properties/' + id);
+    const propertyId = this.route.snapshot.paramMap.get('id');
+    this.propertyDoc = this.afs.doc<Property>('properties/' + propertyId);
     this.property = this.propertyDoc.valueChanges();
     this.property.subscribe(e => {
       this.isLoading = false;
     });
-    this.roomsCollection = this.afs.collection<Room>('properties/' + id + '/rooms');
-    this.rooms = this.roomsCollection.valueChanges();
+    this.roomsCollection = this.afs.collection<Room>('properties/' + propertyId + '/rooms');
+    this.rooms = this.roomsCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(action => {
+        const data = action.payload.doc.data() as Room;
+        const id = action.payload.doc.id;
+        return { id, ...data };
+      });
+    }));
   }
 
   addNewRoom() {
     const newRoom: Room = {
-      name: ''
+      name: '',
+      notes: '',
+      rating: 0
     };
     this.roomsCollection.add(newRoom).then(doc =>
       this.router.navigate(['room/' + doc.id]));

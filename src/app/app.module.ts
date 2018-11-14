@@ -10,6 +10,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import {
   MatToolbarModule,
   MatButtonModule,
@@ -32,11 +33,13 @@ import { AuthService } from './core/auth.service';
 import { MessagingService } from './core/messaging.service';
 import { PropertiesComponent } from './properties/properties.component';
 import { PropertyComponent } from './property/property.component';
+import { RoomComponent } from './room/room.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'properties', component: PropertiesComponent, canActivate: [AuthService] },
   { path: 'property/:id', component: PropertyComponent, canActivate: [AuthService] },
+  { path: 'room/:roomId', component: RoomComponent, canActivate: [AuthService]},
   { path: '**', component: HomeComponent, canActivate: [AuthService] }
 ];
 
@@ -46,7 +49,8 @@ const appRoutes: Routes = [
     LoginComponent,
     HomeComponent,
     PropertiesComponent,
-    PropertyComponent
+    PropertyComponent,
+    RoomComponent
   ],
   imports: [
     RouterModule.forRoot(
