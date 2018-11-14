@@ -22,7 +22,7 @@ export class RoomComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     const propertyId = this.route.snapshot.paramMap.get('propertyId');
-    const roomId = this.route.snapshot.paramMap.get('id');
+    const roomId = this.route.snapshot.paramMap.get('roomId');
     this.roomDoc = this.afs.doc<Room>('properties/' + propertyId + '/rooms/' + roomId);
     this.room = this.roomDoc.valueChanges();
     this.room.subscribe(e => {

@@ -45,7 +45,7 @@ export class PropertyComponent implements OnInit {
       notes: '',
       rating: 0
     };
-    this.roomsCollection.add(newRoom).then(doc =>
-      this.router.navigate(['room/' + this.propertyId + '/' + doc.id]));
+    this.roomsCollection.add(newRoom).then(room =>
+      this.router.navigate(['room/' + this.propertyId + '/' + room.id]));
   }
 }
