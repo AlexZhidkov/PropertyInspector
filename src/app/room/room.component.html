@@ -3,9 +3,30 @@
     <input matInput type="text" name="name" placeholder="Room Name" [ngModel]="(room | async)?.name"
       (ngModelChange)="roomDoc.update({name: $event})">
   </mat-form-field>
+  <mat-form-field class="full-width">
+    <textarea matInput placeholder="Notes" [ngModel]="(room | async)?.notes" (ngModelChange)="roomDoc.update({notes: $event})"></textarea>
+  </mat-form-field>
+
+  <p>Rating</p>
+
+  <div id="star-div" (click)="setRating($event)">
+      <mat-icon id="emptyStar" *ngIf="(room | async)?.rating  - 1 >= 0; else noStar">star</mat-icon>  
+      <mat-icon id="emptyStar" *ngIf="(room | async)?.rating - 2 >= 0; else noStar">star</mat-icon>  
+      <mat-icon id="emptyStar" *ngIf="(room | async)?.rating - 3 >= 0; else noStar">star</mat-icon>  
+      <mat-icon id="emptyStar" *ngIf="(room | async)?.rating - 4 >= 0; else noStar">star</mat-icon>  
+      <mat-icon id="emptyStar" *ngIf="(room | async)?.rating - 5 == 0; else noStar">star</mat-icon>  
+  </div>
+    
+  <ng-template #noStar>
+      <mat-icon id="emptyStar">stars 
+        <span>{{room.rating}}</span>
+      </mat-icon>  
+  </ng-template>
+
+
   <mat-list>
     <h3 mat-subheader>Issues</h3>
-    <mat-list-item *ngFor="let issue of Issues | async" routerLink="/issue/{{issue.id}}">
+    <mat-list-item *ngFor="let issue of issues | async" routerLink="/issue/{{propertyId}}/{{roomId}}/{{issue.id}}">
       {{ issue.name }}
     </mat-list-item>
   </mat-list>

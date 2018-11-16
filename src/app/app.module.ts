@@ -33,12 +33,14 @@ import { MessagingService } from './core/messaging.service';
 import { PropertiesComponent } from './properties/properties.component';
 import { PropertyComponent } from './property/property.component';
 import { RoomComponent } from './room/room.component';
+import { IssueComponent } from './issue/issue.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'properties', component: PropertiesComponent, canActivate: [AuthService] },
   { path: 'property/:id', component: PropertyComponent, canActivate: [AuthService] },
   { path: 'room/:propertyId/:roomId', component: RoomComponent, canActivate: [AuthService] },
+  { path: 'issue/:propertyId/:roomId/:issueId', component: IssueComponent, canActivate: [AuthService]},
   { path: '**', component: HomeComponent, canActivate: [AuthService] }
 ];
 
@@ -49,7 +51,8 @@ const appRoutes: Routes = [
     HomeComponent,
     PropertiesComponent,
     PropertyComponent,
-    RoomComponent
+    RoomComponent,
+    IssueComponent
   ],
   imports: [
     RouterModule.forRoot(
