@@ -10,6 +10,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from '../environments/environment';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   MatToolbarModule,
   MatButtonModule,
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
   { path: 'properties', component: PropertiesComponent, canActivate: [AuthService] },
   { path: 'property/:id', component: PropertyComponent, canActivate: [AuthService] },
   { path: 'room/:propertyId/:roomId', component: RoomComponent, canActivate: [AuthService] },
-  { path: 'issue/:propertyId/:roomId/:issueId', component: IssueComponent, canActivate: [AuthService]},
+  { path: 'issue/:propertyId/:roomId/:issueId', component: IssueComponent, canActivate: [AuthService] },
   { path: '**', component: HomeComponent, canActivate: [AuthService] }
 ];
 
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
     AngularFireMessagingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
+    FontAwesomeModule,
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
