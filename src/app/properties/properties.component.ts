@@ -12,13 +12,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./properties.component.css']
 })
 export class PropertiesComponent implements OnInit {
-
   private collection: AngularFirestoreCollection<Property>;
   properties: Observable<Property[]>;
+  isLoading: boolean;
 
   constructor(private afs: AngularFirestore, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.collection = this.afs.collection<Property>('properties');
     this.properties = this.collection.snapshotChanges().pipe(map(actions => {
       return actions.map(action => {
@@ -27,6 +28,9 @@ export class PropertiesComponent implements OnInit {
         return { id, ...data };
       });
     }));
+    this.properties.subscribe(e => {
+      this.isLoading = false;
+    });
   }
 
   addNewProperty() {

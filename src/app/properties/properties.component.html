@@ -6,6 +6,7 @@
     <mat-card-title>Properties</mat-card-title>
     <mat-card-subtitle>My Properties</mat-card-subtitle>
   </mat-card-header>
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   <mat-list>
     <mat-list-item *ngFor="let property of properties | async" routerLink="/property/{{property.id}}">
       {{ property.name }}
