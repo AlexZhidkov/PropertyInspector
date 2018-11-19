@@ -1,8 +1,15 @@
 .block-button {
     display: block;
     width: 100%;
-    padding: 14px 28px;
+    padding: 0px 8px 0px 8px;
     margin: 16px 0px 16px 0px;
     font-size: 16px;
     text-align: center;
+    height: 40px;
+}
+
+.block-button .google-icon {
+    width: 18px;
+    height: 18px;
+    padding-right: 24px;
 }
