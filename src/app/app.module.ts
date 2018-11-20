@@ -35,6 +35,7 @@ import { PropertiesComponent } from './properties/properties.component';
 import { PropertyComponent } from './property/property.component';
 import { RoomComponent } from './room/room.component';
 import { IssueComponent } from './issue/issue.component';
+import { ImageComponent } from './image/image.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -42,6 +43,7 @@ const appRoutes: Routes = [
   { path: 'property/:id', component: PropertyComponent, canActivate: [AuthService] },
   { path: 'room/:propertyId/:roomId', component: RoomComponent, canActivate: [AuthService] },
   { path: 'issue/:propertyId/:roomId/:issueId', component: IssueComponent, canActivate: [AuthService] },
+  { path: 'image/:propertyId/:roomId/:issueId/:imageId', component: ImageComponent, canActivate: [AuthService] },
   { path: '**', component: HomeComponent, canActivate: [AuthService] }
 ];
 
@@ -53,7 +55,8 @@ const appRoutes: Routes = [
     PropertiesComponent,
     PropertyComponent,
     RoomComponent,
-    IssueComponent
+    IssueComponent,
+    ImageComponent,
   ],
   imports: [
     RouterModule.forRoot(
