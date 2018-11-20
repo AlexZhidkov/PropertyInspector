@@ -34,8 +34,7 @@ export class IssueComponent implements OnInit {
     this.issue.subscribe(e => {
       this.isLoading = false;
     });
-    this.imagesCollection = this.afs.collection<Image>('/media/Lbee16sJLsY3m3a0ym7k/images',
-      ref => ref.where('issueId', '==', this.issueId));
+    this.imagesCollection = this.afs.collection<Image>('/media/' + this.issueId + '/images');
     this.images = this.imagesCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(action => {
         const data = action.payload.doc.data() as Image;
