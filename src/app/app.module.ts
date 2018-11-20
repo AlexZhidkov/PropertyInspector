@@ -56,7 +56,7 @@ const appRoutes: Routes = [
     PropertyComponent,
     RoomComponent,
     IssueComponent,
-    ImageComponent,
+    ImageComponent
   ],
   imports: [
     RouterModule.forRoot(

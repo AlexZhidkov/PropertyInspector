@@ -35,7 +35,7 @@ export class IssueComponent implements OnInit {
       this.isLoading = false;
     });
     this.imagesCollection = this.afs.collection<Image>('/media/Lbee16sJLsY3m3a0ym7k/images',
-        ref => ref.where('issueId', '==', this.issueId));
+      ref => ref.where('issueId', '==', this.issueId));
     this.images = this.imagesCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(action => {
         const data = action.payload.doc.data() as Image;
@@ -43,15 +43,6 @@ export class IssueComponent implements OnInit {
         return { id, ...data };
       });
     }));
-  }
-
-  addNewImage() {
-    const newImage: Image = {
-      url: '',
-      issueId: this.issueId
-    };
-    this.imagesCollection.add(newImage).then(doc =>
-      this.router.navigate(['image/' + this.propertyId + '/' + this.roomId + '/' + this.issueId + '/' + doc.id]));
   }
 }
 

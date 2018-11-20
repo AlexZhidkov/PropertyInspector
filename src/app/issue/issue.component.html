@@ -1,21 +1,13 @@
 <mat-card>
-    <mat-form-field class="full-width">
-      <input matInput type="text" name="name" placeholder="Issue Name" [ngModel]="(issue | async)?.name"
-        (ngModelChange)="issueDoc.update({name: $event})">
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <textarea matInput placeholder="Description" [ngModel]="(issue | async)?.description" (ngModelChange)="issueDoc.update({description: $event})"></textarea>
-    </mat-form-field>
-    <mat-form-field class="full-width">
-      <textarea matInput placeholder="Notes" [ngModel]="(issue | async)?.notes" (ngModelChange)="issueDoc.update({notes: $event})"></textarea>
-    </mat-form-field>
-    <mat-list>
-      <h3 mat-subheader>Images</h3>
-      <div *ngFor="let image of images | async" routerLink="/image/{{propertyId}}/{{roomId}}/{{issueId}}/{{image.id}}">
-        <img [src]="image.url">
-      </div>
-    </mat-list>
-    <button mat-fab>
-      <mat-icon aria-label="Add" (click)="addNewImage()">add</mat-icon>
-    </button>
+  <mat-form-field class="full-width">
+    <input matInput type="text" name="name" placeholder="Issue Name" [ngModel]="(issue | async)?.name" (ngModelChange)="issueDoc.update({name: $event})">
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <textarea matInput placeholder="Description" [ngModel]="(issue | async)?.description" (ngModelChange)="issueDoc.update({description: $event})"></textarea>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <textarea matInput placeholder="Notes" [ngModel]="(issue | async)?.notes" (ngModelChange)="issueDoc.update({notes: $event})"></textarea>
+  </mat-form-field>
 </mat-card>
+
+<app-images [id]="issueId"></app-images>

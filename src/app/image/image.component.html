@@ -1,8 +1,7 @@
-<mat-card>
-  <mat-form-field class="full-width">
-    <input matInput type="text" name="name" placeholder="Image URL" [ngModel]="(image | async)?.url"
-      (ngModelChange)="imageDoc.update({url: $event})">
-  </mat-form-field>
-  <!-- https://stackoverflow.com/questions/41372332/get-http-localhost4200-null-404-not-found-in-angular2-with-angular-cli -->
-  <img [src] ="(image | async)?.url || ''">
+<mat-form-field class="full-width">
+  <input matInput type="text" name="image" placeholder="Image URL" #newImageUrl>
+  <mat-icon matSuffix (click)="addNewImage(newImageUrl.value)">add</mat-icon>
+</mat-form-field>
+<mat-card *ngFor="let image of images | async">
+  <img [src]="image.url">
 </mat-card>
