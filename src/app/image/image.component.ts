@@ -23,7 +23,6 @@ export class ImageComponent implements OnInit {
   }
 
   addNewImage(newImageUrl: string) {
-    console.log(newImageUrl);
     const newImage: Image = {
       url: newImageUrl
     };
