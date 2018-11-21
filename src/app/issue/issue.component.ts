@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Issue } from '../model/issue';
 import { AngularFirestoreDocument, AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Image } from '../model/image';
 
 @Component({
   selector: 'app-issue',
@@ -18,8 +16,6 @@ export class IssueComponent implements OnInit {
   issueId: String;
   issueDoc: AngularFirestoreDocument<Issue>;
   issue: Observable<Issue>;
-  private imagesCollection: AngularFirestoreCollection<Image>;
-  images: Observable<Image[]>;
   isLoading: boolean;
 
   constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router) { }
@@ -34,14 +30,6 @@ export class IssueComponent implements OnInit {
     this.issue.subscribe(e => {
       this.isLoading = false;
     });
-    this.imagesCollection = this.afs.collection<Image>('/media/' + this.issueId + '/images');
-    this.images = this.imagesCollection.snapshotChanges().pipe(map(actions => {
-      return actions.map(action => {
-        const data = action.payload.doc.data() as Image;
-        const id = action.payload.doc.id;
-        return { id, ...data };
-      });
-    }));
   }
 }
 
