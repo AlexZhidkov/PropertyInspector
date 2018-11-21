@@ -36,7 +36,7 @@ export class ImageComponent implements OnInit {
     this.imagesCollection.add(newImage);
   }
 
-  deleteImage(image: Image) {
-    this.afs.doc<Image>('media/' + this.id + '/images/' + image.id).delete();
+  deleteImage(imageId: String) {
+    this.afs.doc<Image>('media/' + this.id + '/images/' + imageId).delete();
   }
 }
