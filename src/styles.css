@@ -10,13 +10,3 @@ body {
 .mat-card .mat-form-field {
     display: block;
 }
-
-.block-button {
-    display: block;
-    width: 100%;
-    padding: 0px 8px 0px 8px;
-    margin: 16px 0px 16px 0px;
-    font-size: 16px;
-    text-align: center;
-    height: 40px;
-}
