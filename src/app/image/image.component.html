@@ -4,4 +4,6 @@
 </mat-form-field>
 <mat-card *ngFor="let image of images | async">
   <img [src]="image.url">
+  <button mat-raised-button class="block-button" (click)="deleteImage(image)">Remove
+  </button>
 </mat-card>

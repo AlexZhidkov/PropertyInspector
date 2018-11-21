@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Image } from '../model/image';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-images',
@@ -19,7 +20,13 @@ export class ImageComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.imagesCollection = this.afs.collection<Image>('media/' + this.id + '/images/');
-    this.images = this.imagesCollection.valueChanges();
+    this.images = this.imagesCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(action => {
+        const data = action.payload.doc.data() as Image;
+        const id = action.payload.doc.id;
+        return { id, ...data };
+      });
+    }));
   }
 
   addNewImage(newImageUrl: string) {
@@ -27,5 +34,9 @@ export class ImageComponent implements OnInit {
       url: newImageUrl
     };
     this.imagesCollection.add(newImage);
+  }
+
+  deleteImage(image: Image) {
+    this.afs.doc<Image>('media/' + this.id + '/images/' + image.id).delete();
   }
 }
