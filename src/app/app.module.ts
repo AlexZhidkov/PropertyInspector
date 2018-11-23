@@ -36,6 +36,7 @@ import { PropertyComponent } from './property/property.component';
 import { RoomComponent } from './room/room.component';
 import { IssueComponent } from './issue/issue.component';
 import { ImageComponent } from './image/image.component';
+import { SidenavProfileComponent } from './sidenav-profile/sidenav-profile.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
     PropertyComponent,
     RoomComponent,
     IssueComponent,
-    ImageComponent
+    ImageComponent,
+    SidenavProfileComponent
   ],
   imports: [
     RouterModule.forRoot(
