@@ -9,6 +9,7 @@ export abstract class BaseService<T extends IBaseEntity> implements IBaseService
     protected collection: AngularFirestoreCollection<T>;
 
     constructor(path: string, protected afs: AngularFirestore) {
+        console.log(path);
         this.collection = this.afs.collection(path);
     }
 
@@ -29,6 +30,7 @@ export abstract class BaseService<T extends IBaseEntity> implements IBaseService
     }
 
     list(): Observable<T[]> {
+        console.log('list method called');
         return this.collection
             .snapshotChanges()
             .pipe(
