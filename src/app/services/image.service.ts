@@ -12,7 +12,6 @@ export class ImageService extends BaseService<Image> {
   }
 
   assignCollection(path: string) {
-    console.log(path);
     this.firestorePath = path;
     this.setCollection(this.firestorePath);
   }

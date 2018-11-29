@@ -12,8 +12,6 @@ export abstract class BaseService<T extends IBaseEntity> implements IBaseService
 
     // set collection should always be called first
     setCollection(path: string) {
-        console.log('set collection called');
-        console.log(path);
         this.collection = this.afs.collection(path);
     }
 
@@ -34,7 +32,6 @@ export abstract class BaseService<T extends IBaseEntity> implements IBaseService
     }
 
     list(): Observable<T[]> {
-        console.log('list method called');
         return this.collection
             .snapshotChanges()
             .pipe(

@@ -12,7 +12,6 @@ export class IssueService extends BaseService<Issue> {
   }
 
   assignCollection(path: string) {
-    console.log(path);
     this.firestorePath = path;
     this.setCollection(this.firestorePath);
   }

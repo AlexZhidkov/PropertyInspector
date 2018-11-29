@@ -14,7 +14,6 @@ export class PropertyService extends BaseService<Property> {
   }
 
   assignCollection(path: string) {
-    console.log(path);
     this.firestorePath = path;
     this.setCollection(this.firestorePath);
   }
