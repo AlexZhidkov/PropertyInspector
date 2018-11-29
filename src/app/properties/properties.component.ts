@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { AuthService } from '../core/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Property } from '../model/property';
 import { Router } from '@angular/router';
 import { PropertyService } from '../services/property.service';

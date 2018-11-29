@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseService } from '../model/BaseService';
+import { BaseService } from './BaseService';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Image } from '../model/image';
 import { ActivatedRoute } from '@angular/router';

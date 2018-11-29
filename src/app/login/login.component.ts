@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../core/auth.service';
+import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { faFacebookF, faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';

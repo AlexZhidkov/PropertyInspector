@@ -1,4 +1,4 @@
-import { IBaseService } from '../model/IBaseService';
+import { IBaseService } from './IBaseService';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
