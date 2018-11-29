@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { Room } from '../model/room';
 import { RoomService } from '../services/room.service';
+import { PropertyService } from '../services/property.service';
 
 @Component({
   selector: 'app-property',
@@ -13,25 +13,25 @@ import { RoomService } from '../services/room.service';
 })
 export class PropertyComponent implements OnInit {
   propertyId: string;
-  propertyDoc: AngularFirestoreDocument<Property>;
   property: Observable<Property>;
-  private roomsCollection: AngularFirestoreCollection<Room>;
   rooms: Observable<Room[]>;
   isLoading: boolean;
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router,
-     private roomService: RoomService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private propertyService: PropertyService,
+    private roomService: RoomService) { }
 
   ngOnInit() {
     this.isLoading = true;
     this.propertyId = this.route.snapshot.paramMap.get('id');
-    this.propertyDoc = this.afs.doc<Property>('properties/' + this.propertyId);
-    this.property = this.propertyDoc.valueChanges();
+    this.propertyService.assignCollection('properties');
+    this.property = this.propertyService.get(this.propertyId);
     this.property.subscribe(e => {
       this.isLoading = false;
     });
-    const path = 'properties/' + this.propertyId + '/rooms';
-    this.roomService.assignCollection(path);
+    this.roomService.assignCollection('properties/' + this.propertyId + '/rooms');
     this.rooms = this.roomService.list();
   }
 

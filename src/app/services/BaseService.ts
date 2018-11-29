@@ -8,7 +8,7 @@ export abstract class BaseService<T extends IBaseEntity> implements IBaseService
 
     protected collection: AngularFirestoreCollection<T>;
 
-    constructor(protected afs: AngularFirestore) {}
+    constructor(protected afs: AngularFirestore) { }
 
     // set collection should always be called first
     setCollection(path: string) {
@@ -22,7 +22,7 @@ export abstract class BaseService<T extends IBaseEntity> implements IBaseService
             .pipe(
                 map(doc => {
                     if (doc.payload.exists) {
-                /* workaround until spread works with generic types */
+                        /* workaround until spread works with generic types */
                         const data = doc.payload.data() as any;
                         const id = doc.payload.id;
                         return { id, ...data };
@@ -59,16 +59,30 @@ export abstract class BaseService<T extends IBaseEntity> implements IBaseService
         return promise;
     }
 
-    update(item: T): Promise<T> {
+    set(item: T): Promise<T> {
         const promise = new Promise<T>((resolve, reject) => {
-        const docRef = this.collection
-            .doc<T>(item.id)
-            .set(item)
-            .then(() => {
-                resolve({
-                    ...(item as any)
+            const docRef = this.collection
+                .doc<T>(item.id)
+                .set(item)
+                .then(() => {
+                    resolve({
+                        ...(item as any)
+                    });
                 });
-            });
+        });
+        return promise;
+    }
+
+    update(id: string, item: T): Promise<T> {
+        const promise = new Promise<T>((resolve, reject) => {
+            const docRef = this.collection
+                .doc<T>(id)
+                .update(item)
+                .then(() => {
+                    resolve({
+                        ...(item as any)
+                    });
+                });
         });
         return promise;
     }
