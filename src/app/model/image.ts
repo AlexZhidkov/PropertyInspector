@@ -1,4 +1,4 @@
 export interface Image {
-    id?: String;
-    url: String;
+    id?: string;
+    url: string;
 }
