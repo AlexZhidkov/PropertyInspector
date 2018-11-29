@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Image } from '../model/image';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ImageService } from '../services/image.service';
 
 @Component({
   selector: 'app-images',
@@ -15,28 +15,23 @@ export class ImageComponent implements OnInit {
   private imagesCollection: AngularFirestoreCollection<Image>;
   images: Observable<Image[]>;
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private imageService: ImageService) { }
 
   ngOnInit() {
     this.isLoading = true;
-    this.imagesCollection = this.afs.collection<Image>('media/' + this.id + '/images/');
-    this.images = this.imagesCollection.snapshotChanges().pipe(map(actions => {
-      return actions.map(action => {
-        const data = action.payload.doc.data() as Image;
-        const id = action.payload.doc.id;
-        return { id, ...data };
-      });
-    }));
+    const path = 'media/' + this.id + '/images/';
+    this.imageService.setCollection(path);
+    this.images = this.imageService.list();
   }
 
   addNewImage(newImageUrl: string) {
     const newImage: Image = {
       url: newImageUrl
     };
-    this.imagesCollection.add(newImage);
+    this.imageService.add(newImage);
   }
 
   deleteImage(imageId: string) {
-    this.afs.doc<Image>('media/' + this.id + '/images/' + imageId).delete();
+    this.imageService.delete(imageId);
   }
 }

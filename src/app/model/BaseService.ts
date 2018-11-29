@@ -8,7 +8,11 @@ export abstract class BaseService<T extends IBaseEntity> implements IBaseService
 
     protected collection: AngularFirestoreCollection<T>;
 
-    constructor(path: string, protected afs: AngularFirestore) {
+    constructor(protected afs: AngularFirestore) {}
+
+    // set collection should always be called first
+    setCollection(path: string) {
+        console.log('set collection called');
         console.log(path);
         this.collection = this.afs.collection(path);
     }

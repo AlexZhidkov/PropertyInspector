@@ -3,8 +3,8 @@ import { Room } from '../model/room';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Issue } from '../model/issue';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IssueService } from '../services/issue.service';
 
 @Component({
   selector: 'app-room',
@@ -21,7 +21,8 @@ export class RoomComponent implements OnInit {
   issues: Observable<Issue[]>;
   isLoading: boolean;
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router) { }
+  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router,
+   private issueService: IssueService) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -32,14 +33,9 @@ export class RoomComponent implements OnInit {
     this.room.subscribe(e => {
       this.isLoading = false;
     });
-    this.issuesCollection = this.afs.collection<Issue>('/properties/' + this.propertyId + '/rooms/' + this.roomId + '/issues');
-    this.issues = this.issuesCollection.snapshotChanges().pipe(map(actions => {
-      return actions.map(action => {
-        const data = action.payload.doc.data() as Issue;
-        const id = action.payload.doc.id;
-        return { id, ...data };
-      });
-    }));
+    const path = '/properties/' + this.propertyId + '/rooms/' + this.roomId + '/issues';
+    this.issueService.setCollection(path);
+    this.issues = this.issueService.list();
   }
 
   addNewIssue() {
@@ -48,7 +44,7 @@ export class RoomComponent implements OnInit {
       description: '',
       notes: ''
     };
-    this.issuesCollection.add(newIssue).then(doc =>
+    this.issueService.add(newIssue).then(doc =>
       this.router.navigate(['issue/' + this.propertyId + '/' + this.roomId + '/' + doc.id]));
   }
 

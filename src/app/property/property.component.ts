@@ -4,7 +4,6 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { Observable } from 'rxjs';
 import { Property } from '../model/property';
 import { Room } from '../model/room';
-import { map } from 'rxjs/operators';
 import { RoomService } from '../services/room.service';
 
 @Component({
@@ -20,7 +19,8 @@ export class PropertyComponent implements OnInit {
   rooms: Observable<Room[]>;
   isLoading: boolean;
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router, private rs: RoomService) { }
+  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router,
+     private roomService: RoomService) { }
 
   ngOnInit() {
     this.isLoading = true;
@@ -30,15 +30,9 @@ export class PropertyComponent implements OnInit {
     this.property.subscribe(e => {
       this.isLoading = false;
     });
-    // this.roomsCollection = this.afs.collection<Room>('properties/' + this.propertyId + '/rooms');
-    // this.rooms = this.roomsCollection.snapshotChanges().pipe(map(actions => {
-    //   return actions.map(action => {
-    //     const data = action.payload.doc.data() as Room;
-    //     const id = action.payload.doc.id;
-    //     return { id, ...data };
-    //   });
-    // }));
-    this.rooms = this.rs.list();
+    const path = 'properties/' + this.propertyId + '/rooms';
+    this.roomService.assignCollection(path);
+    this.rooms = this.roomService.list();
   }
 
   addNewRoom() {
@@ -47,7 +41,7 @@ export class PropertyComponent implements OnInit {
       notes: '',
       rating: 0
     };
-    this.roomsCollection.add(newRoom).then(room =>
+    this.roomService.add(newRoom).then(room =>
       this.router.navigate(['room/' + this.propertyId + '/' + room.id]));
   }
 }

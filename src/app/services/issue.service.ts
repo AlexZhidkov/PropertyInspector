@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from '../model/BaseService';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Room } from '../model/room';
+import { Issue } from '../model/issue';
 import { ActivatedRoute } from '@angular/router';
 
-
-
 @Injectable()
-export class RoomService extends BaseService<Room> {
+export class IssueService extends BaseService<Issue> {
   firestorePath: string;
   constructor(afs: AngularFirestore, route: ActivatedRoute) {
     super(afs);

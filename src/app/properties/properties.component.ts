@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AuthService } from '../core/auth.service';
 import { Property } from '../model/property';
 import { Router } from '@angular/router';
+import { PropertyService } from '../services/property.service';
 
 @Component({
   selector: 'app-properties',
@@ -16,18 +16,14 @@ export class PropertiesComponent implements OnInit {
   properties: Observable<Property[]>;
   isLoading: boolean;
 
-  constructor(private afs: AngularFirestore, private authService: AuthService, private router: Router) { }
+  constructor(private afs: AngularFirestore, private authService: AuthService, private router: Router,
+     private propertyService: PropertyService) { }
 
   ngOnInit() {
     this.isLoading = true;
-    this.collection = this.afs.collection<Property>('properties');
-    this.properties = this.collection.snapshotChanges().pipe(map(actions => {
-      return actions.map(action => {
-        const data = action.payload.doc.data() as Property;
-        const id = action.payload.doc.id;
-        return { id, ...data };
-      });
-    }));
+    const path = 'properties';
+    this.propertyService.setCollection(path);
+    this.properties = this.propertyService.list();
     this.properties.subscribe(e => {
       this.isLoading = false;
     });
@@ -38,7 +34,7 @@ export class PropertiesComponent implements OnInit {
       name: ''
     };
     this.authService.currentUser.subscribe(user => {
-      this.collection.add(newProperty).then(doc =>
+      this.propertyService.add(newProperty).then(doc =>
         this.router.navigate(['property/' + doc.id]));
     });
   }

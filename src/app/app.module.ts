@@ -38,6 +38,9 @@ import { IssueComponent } from './issue/issue.component';
 import { ImageComponent } from './image/image.component';
 import { SidenavProfileComponent } from './sidenav-profile/sidenav-profile.component';
 import { RoomService } from './services/room.service';
+import { PropertyService } from './services/property.service';
+import { IssueService } from './services/issue.service';
+import { ImageService } from './services/image.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -90,6 +93,9 @@ const appRoutes: Routes = [
   providers: [
     AuthService,
     RoomService,
+    PropertyService,
+    IssueService,
+    ImageService,
     MessagingService,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, ],
   bootstrap: [AppComponent]
