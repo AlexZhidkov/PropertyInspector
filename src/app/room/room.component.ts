@@ -13,8 +13,8 @@ import { IssueService } from '../services/issue.service';
 })
 export class RoomComponent implements OnInit {
 
-  propertyId: String;
-  roomId: String;
+  propertyId: string;
+  roomId: string;
   roomDoc: AngularFirestoreDocument<Room>;
   room: Observable<Room>;
   private issuesCollection: AngularFirestoreCollection<Issue>;

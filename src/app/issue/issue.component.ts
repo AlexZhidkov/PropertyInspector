@@ -11,9 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class IssueComponent implements OnInit {
 
-  propertyId: String;
-  roomId: String;
-  issueId: String;
+  propertyId: string;
+  roomId: string;
+  issueId: string;
   issueDoc: AngularFirestoreDocument<Issue>;
   issue: Observable<Issue>;
   isLoading: boolean;
