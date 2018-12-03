@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Room } from '../model/room';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Issue } from '../model/issue';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IssueService } from '../services/issue.service';
+import { RoomService } from '../services/room.service';
 
 @Component({
   selector: 'app-room',
@@ -13,29 +14,34 @@ import { IssueService } from '../services/issue.service';
 })
 export class RoomComponent implements OnInit {
 
-  propertyId: String;
-  roomId: String;
+  propertyId: string;
+  roomId: string;
   roomDoc: AngularFirestoreDocument<Room>;
   room: Observable<Room>;
-  private issuesCollection: AngularFirestoreCollection<Issue>;
   issues: Observable<Issue[]>;
   isLoading: boolean;
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute, private router: Router,
-   private issueService: IssueService) { }
+  constructor(private afs: AngularFirestore,
+    private route: ActivatedRoute,
+    private router: Router,
+    private roomService: RoomService,
+    private issueService: IssueService) { }
 
   ngOnInit() {
     this.isLoading = true;
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     this.roomId = this.route.snapshot.paramMap.get('roomId');
+    // TODO: change the star rating update mechanism
     this.roomDoc = this.afs.doc<Room>('properties/' + this.propertyId + '/rooms/' + this.roomId);
-    this.room = this.roomDoc.valueChanges();
-    this.room.subscribe(e => {
+    const roomsPath = 'properties/' + this.propertyId + '/rooms';
+    this.roomService.setCollection(roomsPath);
+    this.room = this.roomService.get(this.roomId);
+    const issuesPath = '/properties/' + this.propertyId + '/rooms/' + this.roomId + '/issues';
+    this.issueService.setCollection(issuesPath);
+    this.issues = this.issueService.list();
+    this.issues.subscribe(e => {
       this.isLoading = false;
     });
-    const path = '/properties/' + this.propertyId + '/rooms/' + this.roomId + '/issues';
-    this.issueService.setCollection(path);
-    this.issues = this.issueService.list();
   }
 
   addNewIssue() {

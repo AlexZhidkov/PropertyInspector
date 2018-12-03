@@ -26,13 +26,15 @@ export class PropertyComponent implements OnInit {
   ngOnInit() {
     this.isLoading = true;
     this.propertyId = this.route.snapshot.paramMap.get('id');
-    this.propertyService.assignCollection('properties');
+    const propertiesPath = 'properties';
+    this.propertyService.assignCollection(propertiesPath);
     this.property = this.propertyService.get(this.propertyId);
-    this.property.subscribe(e => {
+    const roomsPath = 'properties/' + this.propertyId + '/rooms';
+    this.roomService.assignCollection(roomsPath);
+    this.rooms = this.roomService.list();
+    this.rooms.subscribe(e => {
       this.isLoading = false;
     });
-    this.roomService.assignCollection('properties/' + this.propertyId + '/rooms');
-    this.rooms = this.roomService.list();
   }
 
   addNewRoom() {
