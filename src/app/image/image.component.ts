@@ -25,10 +25,7 @@ export class ImageComponent implements OnInit {
   }
 
   addNewImage(newImageUrl: string) {
-    const newImage: Image = {
-      url: newImageUrl
-    };
-    this.imageService.add(newImage);
+    this.imageService.addImageUrl(newImageUrl);
   }
 
   deleteImage(imageId: string) {
