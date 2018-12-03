@@ -14,7 +14,7 @@ export class ImageComponent implements OnInit {
   isLoading: boolean;
   images: Observable<Image[]>;
 
-  constructor(private afs: AngularFirestore, private imageService: ImageService) { }
+  constructor(private imageService: ImageService) { }
 
   ngOnInit() {
     this.isLoading = true;
