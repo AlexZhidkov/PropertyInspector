@@ -20,7 +20,7 @@ export class PropertyComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private propertyService: PropertyService,
+    public propertyService: PropertyService,
     private roomService: RoomService) { }
 
   ngOnInit() {

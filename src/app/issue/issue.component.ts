@@ -19,7 +19,7 @@ export class IssueComponent implements OnInit {
   issue: Observable<Issue>;
   isLoading: boolean;
 
-  constructor(private route: ActivatedRoute, private issueService: IssueService) { }
+  constructor(private route: ActivatedRoute, public issueService: IssueService) { }
 
   ngOnInit() {
     this.isLoading = true;
