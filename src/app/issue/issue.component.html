@@ -1,12 +1,15 @@
 <mat-card>
   <mat-form-field class="full-width">
-    <input matInput type="text" name="name" placeholder="Issue Name" [ngModel]="(issue | async)?.name" (ngModelChange)="issueDoc.update({name: $event})">
+    <input matInput type="text" name="name" placeholder="Issue Name" [ngModel]="(issue | async)?.name" 
+    (ngModelChange)="issueService.update(issueId, {name: $event})">
   </mat-form-field>
   <mat-form-field class="full-width">
-    <textarea matInput placeholder="Description" [ngModel]="(issue | async)?.description" (ngModelChange)="issueDoc.update({description: $event})"></textarea>
+    <textarea matInput placeholder="Description" [ngModel]="(issue | async)?.description" 
+    (ngModelChange)="issueService.update(issueId, {description: $event})"></textarea>
   </mat-form-field>
   <mat-form-field class="full-width">
-    <textarea matInput placeholder="Notes" [ngModel]="(issue | async)?.notes" (ngModelChange)="issueDoc.update({notes: $event})"></textarea>
+    <textarea matInput placeholder="Notes" [ngModel]="(issue | async)?.notes" 
+    (ngModelChange)="issueService.update(issueId, {notes: $event})"></textarea>
   </mat-form-field>
 </mat-card>
 

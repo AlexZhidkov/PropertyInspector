@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Image } from '../model/image';
 import { Observable } from 'rxjs';
 import { ImageService } from '../services/image.service';
@@ -12,7 +12,6 @@ import { ImageService } from '../services/image.service';
 export class ImageComponent implements OnInit {
   @Input() id: string;
   isLoading: boolean;
-  private imagesCollection: AngularFirestoreCollection<Image>;
   images: Observable<Image[]>;
 
   constructor(private afs: AngularFirestore, private imageService: ImageService) { }

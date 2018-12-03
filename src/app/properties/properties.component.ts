@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Property } from '../model/property';
@@ -12,7 +12,6 @@ import { PropertyService } from '../services/property.service';
   styleUrls: ['./properties.component.css']
 })
 export class PropertiesComponent implements OnInit {
-  private collection: AngularFirestoreCollection<Property>;
   properties: Observable<Property[]>;
   isLoading: boolean;
 
@@ -21,8 +20,8 @@ export class PropertiesComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-    const path = 'properties';
-    this.propertyService.setCollection(path);
+    const propertiesPath = 'properties';
+    this.propertyService.setCollection(propertiesPath);
     this.properties = this.propertyService.list();
     this.properties.subscribe(e => {
       this.isLoading = false;
