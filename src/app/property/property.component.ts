@@ -29,12 +29,12 @@ export class PropertyComponent implements OnInit {
     const propertiesPath = 'properties';
     this.propertyService.assignCollection(propertiesPath);
     this.property = this.propertyService.get(this.propertyId);
-    this.property.subscribe(e => {
-      this.isLoading = false;
-    });
     const roomsPath = 'properties/' + this.propertyId + '/rooms';
     this.roomService.assignCollection(roomsPath);
     this.rooms = this.roomService.list();
+    this.rooms.subscribe(e => {
+      this.isLoading = false;
+    });
   }
 
   addNewRoom() {

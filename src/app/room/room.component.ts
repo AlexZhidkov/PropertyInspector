@@ -36,12 +36,12 @@ export class RoomComponent implements OnInit {
     const roomsPath = 'properties/' + this.propertyId + '/rooms';
     this.roomService.setCollection(roomsPath);
     this.room = this.roomService.get(this.roomId);
-    this.room.subscribe(e => {
-      this.isLoading = false;
-    });
     const issuesPath = '/properties/' + this.propertyId + '/rooms/' + this.roomId + '/issues';
     this.issueService.setCollection(issuesPath);
     this.issues = this.issueService.list();
+    this.issues.subscribe(e => {
+      this.isLoading = false;
+    });
   }
 
   addNewIssue() {
