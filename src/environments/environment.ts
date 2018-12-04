@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  firebaseFunctionsUrl: 'https://us-central1-propertyinspector-dev.cloudfunctions.net/',
   firebase: {
     apiKey: 'AIzaSyCRoDQLXymX0_i5_2cliKcOwOB3ccSs6yc',
     authDomain: 'propertyinspector-dev.firebaseapp.com',

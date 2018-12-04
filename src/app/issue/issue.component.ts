@@ -21,7 +21,7 @@ export class IssueComponent implements OnInit {
   isIssueLoading: boolean;
 
   constructor(private route: ActivatedRoute,
-    private issueService: IssueService,
+    public issueService: IssueService,
     private imageLIS: ImagesLoadIndicatorService) { }
 
   ngOnInit() {

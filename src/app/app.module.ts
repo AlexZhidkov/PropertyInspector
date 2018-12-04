@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
@@ -23,6 +24,7 @@ import {
   MatListModule,
   MatSidenavModule,
   MatProgressBarModule,
+  MatDividerModule,
   MAT_DATE_LOCALE
 } from '@angular/material';
 
@@ -70,6 +72,7 @@ const appRoutes: Routes = [
       appRoutes
     ),
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
@@ -89,7 +92,8 @@ const appRoutes: Routes = [
     MatInputModule,
     MatListModule,
     MatSidenavModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDividerModule
   ],
   providers: [
     AuthService,

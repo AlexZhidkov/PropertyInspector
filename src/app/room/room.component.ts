@@ -25,7 +25,7 @@ export class RoomComponent implements OnInit {
   constructor(private afs: AngularFirestore,
     private route: ActivatedRoute,
     private router: Router,
-    private roomService: RoomService,
+    public roomService: RoomService,
     private issueService: IssueService,
     private imagesLIS: ImagesLoadIndicatorService) { }
 
@@ -60,8 +60,8 @@ export class RoomComponent implements OnInit {
     const clickWidth = event.x;
     const starWidth = document.getElementById('emptyStar').clientWidth;
     const stars = Math.round(clickWidth / starWidth);
-    if ( stars <= 5) {
-      this.roomDoc.update({rating: stars});
+    if (stars <= 5) {
+      this.roomDoc.update({ rating: stars });
     }
   }
 }

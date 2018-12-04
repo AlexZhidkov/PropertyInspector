@@ -1,10 +1,15 @@
-<mat-form-field class="full-width">
-  <input matInput type="text" name="image" placeholder="Image URL" #newImageUrl>
-  <mat-icon matSuffix (click)="addNewImage(newImageUrl.value)">add</mat-icon>
-</mat-form-field>
+<mat-divider></mat-divider>
+<mat-card>
+  <mat-form-field class="full-width">
+    <input matInput type="text" name="image" placeholder="Image URL" #newImageUrl>
+    <mat-icon matSuffix (click)="addNewImage(newImageUrl.value); newImageUrl.value = null">add</mat-icon>
+  </mat-form-field>
+</mat-card>
 <mat-card *ngFor="let image of images | async">
-  <img [src]="image.url">
-  <button mat-fab color="" (click)="deleteImage(image.id)">
-    <mat-icon >delete</mat-icon>
-  </button>
+  <img mat-card-image [src]="image.url">
+  <mat-card-actions>
+    <button mat-fab color="" (click)="deleteImage(image.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-actions>
 </mat-card>
