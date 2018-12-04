@@ -3,6 +3,7 @@ import { BaseService } from './BaseService';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Image } from '../model/image';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ImageService extends BaseService<Image> {
@@ -18,12 +19,18 @@ export class ImageService extends BaseService<Image> {
   }
 
   addImageUrl(url: string) {
-    this.httpClient.get('https://us-central1-propertyinspector-dev.cloudfunctions.net/getImageUrl?url=' + url)
-      .subscribe(r => {
-        const newImage: Image = {
-          url: r['url']
-        };
-        this.add(newImage);
-      });
+    if (url.indexOf('https://photos.app.goo.gl/') === 0) {
+      this.httpClient.get(environment.firebaseFunctionsUrl + 'getImageUrl?url=' + url)
+        .subscribe(r => this.addNewImage(r['url']));
+    } else {
+      this.addNewImage(url);
+    }
+  }
+
+  addNewImage(imageUrl: string) {
+    const newImage: Image = {
+      url: imageUrl
+    };
+    this.add(newImage);
   }
 }

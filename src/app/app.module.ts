@@ -24,6 +24,7 @@ import {
   MatListModule,
   MatSidenavModule,
   MatProgressBarModule,
+  MatDividerModule,
   MAT_DATE_LOCALE
 } from '@angular/material';
 
@@ -90,7 +91,8 @@ const appRoutes: Routes = [
     MatInputModule,
     MatListModule,
     MatSidenavModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDividerModule
   ],
   providers: [
     AuthService,
