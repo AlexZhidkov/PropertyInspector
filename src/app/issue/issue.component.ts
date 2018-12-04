@@ -4,6 +4,7 @@ import { AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { IssueService } from '../services/issue.service';
+import { ImagesLoadIndicatorService } from '../services/images-load-indicator.service';
 
 @Component({
   selector: 'app-issue',
@@ -17,12 +18,14 @@ export class IssueComponent implements OnInit {
   issueId: string;
   issueDoc: AngularFirestoreDocument<Issue>;
   issue: Observable<Issue>;
-  isLoading: boolean;
+  isIssueLoading: boolean;
 
-  constructor(private route: ActivatedRoute, private issueService: IssueService) { }
+  constructor(private route: ActivatedRoute,
+    private issueService: IssueService,
+    private imageLIS: ImagesLoadIndicatorService) { }
 
   ngOnInit() {
-    this.isLoading = true;
+    this.isIssueLoading = true;
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     this.roomId = this.route.snapshot.paramMap.get('roomId');
     this.issueId = this.route.snapshot.paramMap.get('issueId');
@@ -30,7 +33,7 @@ export class IssueComponent implements OnInit {
     this.issueService.setCollection(issuesPath);
     this.issue = this.issueService.get(this.issueId);
     this.issue.subscribe(e => {
-      this.isLoading = false;
+      this.isIssueLoading = false;
     });
   }
 }

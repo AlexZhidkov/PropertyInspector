@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IssueService } from '../services/issue.service';
 import { RoomService } from '../services/room.service';
+import { ImagesLoadIndicatorService } from '../services/images-load-indicator.service';
 
 @Component({
   selector: 'app-room',
@@ -19,16 +20,17 @@ export class RoomComponent implements OnInit {
   roomDoc: AngularFirestoreDocument<Room>;
   room: Observable<Room>;
   issues: Observable<Issue[]>;
-  isLoading: boolean;
+  isIssueListLoading: boolean;
 
   constructor(private afs: AngularFirestore,
     private route: ActivatedRoute,
     private router: Router,
     private roomService: RoomService,
-    private issueService: IssueService) { }
+    private issueService: IssueService,
+    private imagesLIS: ImagesLoadIndicatorService) { }
 
   ngOnInit() {
-    this.isLoading = true;
+    this.isIssueListLoading = true;
     this.propertyId = this.route.snapshot.paramMap.get('propertyId');
     this.roomId = this.route.snapshot.paramMap.get('roomId');
     // TODO: change the star rating update mechanism
@@ -40,7 +42,7 @@ export class RoomComponent implements OnInit {
     this.issueService.setCollection(issuesPath);
     this.issues = this.issueService.list();
     this.issues.subscribe(e => {
-      this.isLoading = false;
+      this.isIssueListLoading = false;
     });
   }
 

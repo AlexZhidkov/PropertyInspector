@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar *ngIf="isIssueListLoading || imagesLIS.isImageListLoading" mode="indeterminate"></mat-progress-bar>
   <mat-form-field class="full-width">
     <input matInput type="text" name="name" placeholder="Room Name" [ngModel]="(room | async)?.name"
       (ngModelChange)="roomService.update(roomId, {name: $event})">
@@ -37,4 +37,4 @@
   </button>
 </mat-card>
 
-<app-images [id]="roomId"></app-images>
+<app-images [id]="roomId" (imagesLoaded)="imagesLIS.onImagesLoaded($event)"></app-images>

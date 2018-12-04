@@ -5,6 +5,7 @@ import { Property } from '../model/property';
 import { Room } from '../model/room';
 import { RoomService } from '../services/room.service';
 import { PropertyService } from '../services/property.service';
+import { ImagesLoadIndicatorService } from '../services/images-load-indicator.service';
 
 @Component({
   selector: 'app-property',
@@ -15,16 +16,17 @@ export class PropertyComponent implements OnInit {
   propertyId: string;
   property: Observable<Property>;
   rooms: Observable<Room[]>;
-  isLoading: boolean;
+  isRoomListLoading: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private propertyService: PropertyService,
-    private roomService: RoomService) { }
+    private roomService: RoomService,
+    private imagesLIS: ImagesLoadIndicatorService) { }
 
   ngOnInit() {
-    this.isLoading = true;
+    this.isRoomListLoading = true;
     this.propertyId = this.route.snapshot.paramMap.get('id');
     const propertiesPath = 'properties';
     this.propertyService.assignCollection(propertiesPath);
@@ -33,7 +35,7 @@ export class PropertyComponent implements OnInit {
     this.roomService.assignCollection(roomsPath);
     this.rooms = this.roomService.list();
     this.rooms.subscribe(e => {
-      this.isLoading = false;
+      this.isRoomListLoading = false;
     });
   }
 

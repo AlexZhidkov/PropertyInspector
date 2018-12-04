@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Image } from '../model/image';
 import { Observable } from 'rxjs';
 import { ImageService } from '../services/image.service';
@@ -11,6 +10,7 @@ import { ImageService } from '../services/image.service';
 })
 export class ImageComponent implements OnInit {
   @Input() id: string;
+  @Output() imagesLoaded = new EventEmitter<boolean>();
   isLoading: boolean;
   images: Observable<Image[]>;
 
@@ -21,6 +21,10 @@ export class ImageComponent implements OnInit {
     const path = 'media/' + this.id + '/images/';
     this.imageService.setCollection(path);
     this.images = this.imageService.list();
+    this.images.subscribe(e => {
+      this.isLoading = false;
+      this.imagesLoaded.emit(this.isLoading);
+    });
   }
 
   addNewImage(newImageUrl: string) {

@@ -41,6 +41,7 @@ import { RoomService } from './services/room.service';
 import { PropertyService } from './services/property.service';
 import { IssueService } from './services/issue.service';
 import { ImageService } from './services/image.service';
+import { ImagesLoadIndicatorService } from './services/images-load-indicator.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -96,6 +97,7 @@ const appRoutes: Routes = [
     PropertyService,
     IssueService,
     ImageService,
+    ImagesLoadIndicatorService,
     MessagingService,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, ],
   bootstrap: [AppComponent]
