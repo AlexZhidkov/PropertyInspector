@@ -1,0 +1,6 @@
+.spinner-div {
+    padding: 40px;
+}
+.spinner-div .mat-progress-spinner {
+    margin:0 auto;
+}

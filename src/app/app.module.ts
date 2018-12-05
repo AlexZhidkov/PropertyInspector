@@ -25,7 +25,8 @@ import {
   MatSidenavModule,
   MatProgressBarModule,
   MatDividerModule,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -92,7 +93,8 @@ const appRoutes: Routes = [
     MatListModule,
     MatSidenavModule,
     MatProgressBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthService,
