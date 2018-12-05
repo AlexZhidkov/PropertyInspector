@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Component, OnInit, Input } from '@angular/core';
+=======
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+>>>>>>> 8cc1f2f6528566a87c3c8f39c607575667a4f5c9
 import { Image } from '../model/image';
 import { Observable } from 'rxjs';
 import { ImageService } from '../services/image.service';
@@ -10,6 +14,7 @@ import { ImageService } from '../services/image.service';
 })
 export class ImageComponent implements OnInit {
   @Input() id: string;
+  @Output() imagesLoaded = new EventEmitter<boolean>();
   isLoading: boolean;
   images: Observable<Image[]>;
 
@@ -22,6 +27,10 @@ export class ImageComponent implements OnInit {
     this.images = this.imageService.list();
     this.images.subscribe(e => {
       this.isLoading = false;
+<<<<<<< HEAD
+=======
+      this.imagesLoaded.emit(this.isLoading);
+>>>>>>> 8cc1f2f6528566a87c3c8f39c607575667a4f5c9
     });
   }
 
